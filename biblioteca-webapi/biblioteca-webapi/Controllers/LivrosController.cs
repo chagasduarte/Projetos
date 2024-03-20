@@ -34,7 +34,8 @@ namespace biblioteca_webapi.Controllers
             {
                 livro.Nome,
                 livro.Usuario,
-                livro.Box
+                livro.Box,
+
             };
             using (var sqlConnection = new SqlConnection(_connectionString))
             {
