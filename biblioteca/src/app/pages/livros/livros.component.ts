@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LivrosService } from '../../shared/services/livros.service';
-import { Livros } from '../../shared/models/livros';
+import { LivroInput, Livros } from '../../shared/models/livros';
 import { CommonModule } from '@angular/common';
 import { Box, BoxInput } from '../../shared/models/box';
 import { BoxService } from '../../shared/services/box.service';
@@ -17,7 +17,11 @@ export class LivrosComponent implements OnInit {
 
   livros: Livros[] = [];
   boxs: Box[] = [];
-  nomeBox: BoxInput = {nome: ""}
+  nomeBox: BoxInput = {nome: ""};
+  nomeLivro: string = "";
+  usuarioLivro: number = 1;
+  idBox: number = 0;
+
   constructor(
     private readonly livrosService: LivrosService,
     private readonly boxService: BoxService
@@ -27,6 +31,7 @@ export class LivrosComponent implements OnInit {
   ngOnInit(): void {
     this.boxService.GetAll().subscribe({
       next: (success: Box[]) => {
+        console.log(success)
         this.boxs = success;
       }
     });
@@ -39,4 +44,19 @@ export class LivrosComponent implements OnInit {
       }
     })
   }
+
+  adicionarLivro(){
+    const livro: LivroInput = {
+      Nome: this.nomeLivro,
+      Box: this.idBox,
+      Usuario: this.usuarioLivro
+    }
+
+    this.livrosService.Insert(livro).subscribe({
+      next: () => {
+        alert("livro adicionado com sucesso")
+      }
+    });
+  }
+
 }

@@ -28,18 +28,17 @@ namespace biblioteca_webapi.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Insert(LivroInputModel livro)
+        public async Task<IActionResult> Insert([FromBody] LivroInputModel livro)
         {
             var parameters = new
             {
                 livro.Nome,
                 livro.Usuario,
-                livro.Box,
-
+                livro.Box
             };
             using (var sqlConnection = new SqlConnection(_connectionString))
             {
-                const string sql = "INSERT INTO [dbo].[livro] OUTPUT INSERTED.id_livro  VALUES (@nome,@usuario ,@box)";
+                const string sql = "INSERT INTO [dbo].[livro] OUTPUT INSERTED.id_livro  VALUES (@nome,@usuario ,@box, null, null)";
                 int id = await sqlConnection.ExecuteScalarAsync<int>(sql, parameters);
                 return Ok(id);
             }
