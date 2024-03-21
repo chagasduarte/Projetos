@@ -38,7 +38,7 @@ namespace biblioteca_webapi.Controllers
             };
             using (var sqlConnection = new SqlConnection(_connectionString))
             {
-                const string sql = "INSERT INTO [dbo].[livro] OUTPUT INSERTED.id_livro  VALUES (@nome,@usuario ,@box, null, null)";
+                const string sql = "INSERT INTO [dbo].[livro] OUTPUT INSERTED.id_livro  VALUES (@nome,@usuario ,@box, 0, null)";
                 int id = await sqlConnection.ExecuteScalarAsync<int>(sql, parameters);
                 return Ok(id);
             }
