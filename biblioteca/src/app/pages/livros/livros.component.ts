@@ -31,7 +31,6 @@ export class LivrosComponent implements OnInit {
   ngOnInit(): void {
     this.boxService.GetAll().subscribe({
       next: (success: Box[]) => {
-        console.log(success)
         this.boxs = success;
       }
     });

@@ -44,5 +44,23 @@ namespace biblioteca_webapi.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateStatus(int id)
+        {
+            var parameters = new
+            {
+                id = id
+            };
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                const string sql = "UPDATE [dbo].[livro] " +
+                                   "SET [status] = [status] + 1 " +
+                                   "WHERE [id_livro] = @id and [status] < 3";
+                var livros = await sqlConnection.ExecuteScalarAsync(sql, parameters);
+                return Ok();
+            }
+        }
+
+
     }
 }

@@ -16,5 +16,8 @@ export class LivrosService {
   public Insert(livro: LivroInput) : Observable<number>{
     return this.htppClient.post<number>("https://localhost:7069/api/Livros", livro);
   }
+  public UpdateStatus(id: number){
+    return this.htppClient.put<number>("https://localhost:7069/api/Livros", id);
+  }
 
 }

@@ -32,7 +32,16 @@ namespace biblioteca_webapi.Controllers
                         box = box.id_box
                     };
                    
-                    const string sqlLivros = "SELECT * FROM livro WHERE box_livro = @box";
+                    const string sqlLivros = "SELECT " +
+                                                "[id_livro]," +
+                                                "[nome_livro]," +
+                                                "[usuario_livro]," +
+                                                "[box_livro], " +
+                                                "case when [status] = 0 then 'Leitura ainda não iniciada' " +
+                                                "when [status] = 1 then 'Leitura Iniciada'  " +
+                                                "when [status] = 2 then 'Leitura Concluida' end [status]," +
+                                                "[descricao]" +
+                                            "FROM livro WHERE box_livro = @box";
                     
                     BoxOutputModel outputModel = new BoxOutputModel();
                     outputModel.id_box = box.id_box;
