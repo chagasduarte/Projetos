@@ -29,6 +29,10 @@ export class LivrosComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.buscarLivros();
+  }
+
+  buscarLivros(){
     this.boxService.GetAll().subscribe({
       next: (success: Box[]) => {
         this.boxs = success;
@@ -40,8 +44,12 @@ export class LivrosComponent implements OnInit {
     this.boxService.Insert(this.nomeBox).subscribe({
       next: (success: any) => {
         alert("Box Adicionado com  sucesso");
+      },
+      complete: () => {
+        this.buscarLivros();
       }
-    })
+    });
+
   }
 
   adicionarLivro(){
@@ -54,8 +62,33 @@ export class LivrosComponent implements OnInit {
     this.livrosService.Insert(livro).subscribe({
       next: () => {
         alert("livro adicionado com sucesso")
+      },
+      complete: () => {
+        this.buscarLivros();
       }
     });
   }
 
+  avancarStatus(id:number){
+    this.livrosService.UpdateStatus(id).subscribe({
+      next: (success: any) => {
+        alert("Status atualizado");
+      },
+      complete: () => {
+        this.buscarLivros();
+      }
+    });
+  }
+
+  deletarLivro(id:number){
+    console.log(id)
+    this.livrosService.Delete(id).subscribe({
+      next: (success: any) => {
+        alert("Livro removido");
+      },
+      complete: () => {
+        this.buscarLivros();
+      }
+    });
+  }
 }

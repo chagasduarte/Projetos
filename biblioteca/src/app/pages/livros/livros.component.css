@@ -1,0 +1,34 @@
+#box {
+  width: 80%;
+  position: relative;
+}
+.livro {
+  float: left;
+  width: 320px;
+  padding: 0;
+  position: absolute;
+  left: 0;
+}
+.livro-card{
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: solid 10px #fff;
+  box-shadow: -1px 0 2px #444;
+}
+
+.livro-card h3{
+  position: absolute;
+  left: 20px;
+  bottom: 0;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgb(0,0,0,0.75);
+  font-size: 16px;
+}
+
+.livro-card img{
+  width: 100%;
+  display: block;
+  transition: all 0.5s ease;
+}
+
