@@ -19,7 +19,6 @@ if (app.Environment.IsDevelopment())
         x.AllowAnyOrigin();
         x.AllowAnyMethod();
         x.AllowAnyHeader();
-
     });
 }
 

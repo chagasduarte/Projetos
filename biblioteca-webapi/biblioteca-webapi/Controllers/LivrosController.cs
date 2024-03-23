@@ -44,8 +44,8 @@ namespace biblioteca_webapi.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateStatus(int id)
+        [HttpPut]
+        public async Task<IActionResult> UpdateStatus([FromBody]int id)
         {
             var parameters = new
             {
@@ -61,6 +61,20 @@ namespace biblioteca_webapi.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteLivro(int id)
+        {
+            var parameters = new
+            {
+                id = id
+            };
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                const string sql = "DELETE FROM livro WHERE id_livro = @id";
+                await sqlConnection.ExecuteScalarAsync(sql, parameters);
+                return Ok();
+            }
+        }
 
     }
 }
