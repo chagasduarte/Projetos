@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Livros } from '../models/livros';
+import { Livros, LivroInput } from '../models/livros';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -10,8 +10,14 @@ export class LivrosService {
 
   constructor(private readonly htppClient: HttpClient) { }
 
-  public getLivros(): Observable<Livros[]> {
+  public GetAll(): Observable<Livros[]> {
     return this.htppClient.get<Livros[]>("https://localhost:7069/api/Livros");
+  }
+  public Insert(livro: LivroInput) : Observable<number>{
+    return this.htppClient.post<number>("https://localhost:7069/api/Livros", livro);
+  }
+  public UpdateStatus(id: number){
+    return this.htppClient.put<number>("https://localhost:7069/api/Livros", id);
   }
 
 }

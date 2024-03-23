@@ -6,6 +6,6 @@ namespace biblioteca_webapi.Models
     {
         public string? Nome { get; set; }
         public int Usuario { get; set; }
-        public int Box { get; set; }
+        public int? Box { get; set; }
     }
 }

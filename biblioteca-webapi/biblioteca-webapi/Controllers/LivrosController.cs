@@ -26,22 +26,53 @@ namespace biblioteca_webapi.Controllers
                 return Ok(livros);
             }
         }
-
+        
         [HttpPost]
-        public async Task<IActionResult> Insert(LivroInputModel livro)
+        public async Task<IActionResult> Insert([FromBody] LivroInputModel livro)
         {
             var parameters = new
             {
                 livro.Nome,
                 livro.Usuario,
-                livro.Box,
-
+                livro.Box
             };
             using (var sqlConnection = new SqlConnection(_connectionString))
             {
-                const string sql = "INSERT INTO [dbo].[livro] OUTPUT INSERTED.id_livro  VALUES (@nome,@usuario ,@box)";
+                const string sql = "INSERT INTO [dbo].[livro] OUTPUT INSERTED.id_livro  VALUES (@nome,@usuario ,@box, 0, null)";
                 int id = await sqlConnection.ExecuteScalarAsync<int>(sql, parameters);
                 return Ok(id);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateStatus([FromBody]int id)
+        {
+            var parameters = new
+            {
+                id = id
+            };
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                const string sql = "UPDATE [dbo].[livro] " +
+                                   "SET [status] = [status] + 1 " +
+                                   "WHERE [id_livro] = @id and [status] < 3";
+                var livros = await sqlConnection.ExecuteScalarAsync(sql, parameters);
+                return Ok();
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteLivro(int id)
+        {
+            var parameters = new
+            {
+                id = id
+            };
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                const string sql = "DELETE FROM livro WHERE id_livro = @id";
+                await sqlConnection.ExecuteScalarAsync(sql, parameters);
+                return Ok();
             }
         }
 
