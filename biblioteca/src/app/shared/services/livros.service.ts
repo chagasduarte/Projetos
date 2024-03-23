@@ -20,4 +20,8 @@ export class LivrosService {
     return this.htppClient.put<number>("https://localhost:7069/api/Livros", id);
   }
 
+  public Delete(id: number){
+    return this.htppClient.delete("https://localhost:7069/api/Livros/" + id);
+  }
+
 }

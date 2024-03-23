@@ -52,14 +52,15 @@
   <div class="row mb-2">
     <div class="col col-md-6" *ngFor="let livro of box.livros">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <h3 class="mb-0">{{ livro.nome_livro }}</h3>
-          <div class="mb-1 text-body-secondary"> {{livro.status}} </div>
+        <div class="col p-4 d-flex flex-column position-static ">
+          <h3 class="mb-2">{{ livro.nome_livro }}</h3>
+          <div class="mb-0 text-body-secondary d-flex">
+            <div class="b-3">{{livro.status}}</div>
+            <button class="btn btn-warning btn-sm"><i class="bi bi-plus" (click)="avancarStatus(livro.id_livro)"></i></button>
+          </div>
           <p class="card-text mb-auto"> {{livro.descricao}} </p>
-          <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-            Continue lendo
-            <svg class="bi"><use xlink:href="#chevron-right"/></svg>
-          </a>
+
+          <a class="btn btn-danger" (click)="deletarLivro(livro.id_livro)">apagar</a>
         </div>
         <div class="col-auto d-none d-lg-block">
           <img width="200" height="250" src="../../../assets/images/beedleobardo.webp"/>
@@ -85,7 +86,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary" (click)="adicionarLivro()">Salvar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="adicionarLivro()">Salvar</button>
       </div>
     </div>
   </div>
